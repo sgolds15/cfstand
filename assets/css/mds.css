@@ -1,0 +1,3799 @@
+/* MDS Base fundamental styles for HTML tags */
+
+:root {
+  /* Container width */
+  --mds-container-max-width: 100%;
+  /* Colors */
+  /**
+  * @tokens Primary
+  * @presenter Color
+  */
+  --mds-color-primary-500: #ed1b2f;
+  --mds-color-primary-800: #9e0918;
+  /**
+  * @tokens Utility
+  * @presenter Color
+  */
+  --mds-color-a11y: #bcade2;
+  /**
+  * @tokens Greyscale
+  * @presenter Color
+  */
+  --mds-color-black: #000;
+  --mds-color-gray-900: hsl(0deg 0% 12% / 100%);
+  --mds-color-gray-600: hsl(0deg 1% 27% / 100%);
+  --mds-color-gray-500: hsl(0deg 1% 32% / 100%);
+  --mds-color-gray-400: hsl(0deg 0% 46% / 100%);
+  --mds-color-gray-300: hsl(0deg 1% 60% / 100%);
+  --mds-color-gray-200: hsl(220deg 13% 91% / 100%);
+  --mds-color-gray-100: #f4f4f4;
+  --mds-color-white: #fff;
+  /**
+  * @tokens Success
+  * @presenter Color
+  */
+  --mds-color-success-500: #009582;
+  --mds-color-success-100: #d7f1ea;
+  /**
+  * @tokens Error
+  * @presenter Color
+  */
+  --mds-color-error-500: #d14444;
+  --mds-color-error-100: #fadbd6;
+  /**
+  * @tokens Warning
+  * @presenter Color
+  */
+  --mds-color-warning-500: #de8706;
+  --mds-color-warning-100: #ffe4b7;
+  /**
+  * @tokens Info
+  * @presenter Color
+  */
+  --mds-color-info-500: #03a9f4;
+  --mds-color-info-100: #cdeefd;
+  /**
+  * @tokens Radius
+  * @presenter BorderRadius
+  */
+  --mds-border-radius: 0.25rem;
+  /**
+  * @tokens Shadow
+  * @presenter Shadow
+  */
+  /* TODO: These should be in rem or standard spacing units. */
+  --mds-shadow-small: 0 1px 2px var(--mds-color-gray-300);
+  --mds-shadow-large: 0 4px 8px var(--mds-color-gray-300);
+  /**
+  * TODO: the math below doesn't check out in many cases, this should be looked
+  at and adjusted so the spacing is predictable and what it should be.
+  * @tokens Spacing
+  * @presenter Spacing
+  */
+  --space-unit: 0.5rem; /* Unit for smaller devices */
+  --mds-spacing-xx-small: calc(0.25 * var(--space-unit)); /* 4px TODO: this
+  math is wrong. 0.25x 0.5rem (8px) = 2px, not 4. */
+  --mds-spacing-x-small: calc(0.5 * var(--space-unit)); /* 8px TODO: the result of this math is actually 4px. */
+  --mds-spacing-small: calc(0.75 * var(--space-unit));
+  /* TODO: the below calculation isn't necessary 1 * anything is just the thing itself. */
+  --mds-spacing-medium: calc(1 * var(--space-unit));
+  --mds-spacing-large: calc(1.25 * var(--space-unit));
+  --mds-spacing-x-large: calc(1.75 * var(--space-unit));
+  /**
+  * @tokens Border
+  * @presenter Border
+  */
+  --mds-border-thin-light: 1px solid var(--mds-color-gray-300);
+  --mds-border-thin: 1px solid var(--mds-color-gray-900);
+  --mds-border-medium: 2px solid var(--mds-color-gray-900);
+  --mds-border-thick: 5px solid var(--mds-color-primary-500);
+  --mds-border-error: 3px solid var(--mds-color-primary-500);
+  --mds-border-info: 1px dotted var(--mds-color-gray-900);
+  /**
+  * @tokens Transition
+  * @presenter Easing
+  */
+  /*
+    TODO:
+      These curves describe acceleration (transition-timing-functions), not speed, we should rename them.
+      They are are also not useful by themselves without a duration value.
+      The current names are misleading.
+    */
+  --mds-transition-slow: cubic-bezier(0.21, 0, 0.85, 1);
+  --mds-transition-medium: cubic-bezier(0.59, 0, 0.47, 1);
+  --mds-transition-fast: cubic-bezier(0.89, 0.01, 0.02, 1.03);
+  /* TODO: we need proper values and scales for these, as of now, they are arbitrary: */
+  --mds-transition-delay-short: 0.1s;
+  --mds-transition-duration-short: 0.3s;
+  /**
+  * Typography tokens
+  * @tokens Font families
+  * @presenter FontFamily
+  */
+  --mds-font-mono: sfmono-regular, consolas, "Liberation Mono", menlo, monospace;
+  /* San-serif */
+  --mds-font-sans:
+    mcgillsans-regular,
+    -apple-system,
+    blinkmacsystemfont,
+    "Segoe UI",
+    roboto,
+    helvetica,
+    arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --mds-font-sans-medium:
+    mcgillsans-medium,
+    -apple-system,
+    blinkmacsystemfont,
+    "Segoe UI",
+    roboto,
+    helvetica,
+    arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --mds-font-sans-bold:
+    mcgillsans-bold,
+    -apple-system,
+    blinkmacsystemfont,
+    "Segoe UI",
+    roboto,
+    helvetica,
+    arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --mds-font-sans-italic:
+    mcgillsans-italic,
+    -apple-system,
+    blinkmacsystemfont,
+    "Segoe UI",
+    roboto,
+    helvetica,
+    arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --mds-font-sans-bold-italic:
+    mcgillsans-bolditalic,
+    -apple-system,
+    blinkmacsystemfont,
+    "Segoe UI",
+    roboto,
+    helvetica,
+    arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  /* Serif */
+  --mds-font-serif: mcgillserif-regular, georgia, "Times New Roman", serif;
+  --mds-font-serif-medium: mcgillserif-medium, georgia, "Times New Roman", serif;
+  --mds-font-serif-bold: mcgillserif-bold, georgia, "Times New Roman", serif;
+  --mds-font-serif-bold-italic: mcgillserif-bolditalic, georgia, "Times New Roman", serif;
+  --mds-font-serif-italic: mcgillserif-italic, georgia, "Times New Roman", serif;
+  /**
+  * @tokens Font size
+  * @presenter FontSize
+  */
+  --max-vw: 80; /* 1280px wide */
+  /* Fixed font sizes without viewport scaling. */
+  --mds-font-size-large-fixed: 1.25rem;
+  --mds-font-size-x-large-fixed: 1.5rem;
+  --mds-font-size-xx-large-fixed: 2rem;
+  --mds-font-size-xxx-large-fixed: 2.25rem;
+  /* Default Responsive font sizes with viewport scaling. */
+  --mds-font-size-small: clamp(0.875rem, calc(0.88 / var(--max-vw) * 100vw), 0.88rem);
+  --mds-font-size-medium: clamp(1rem, calc(1 / var(--max-vw) * 100vw), 1rem);
+  --mds-font-size-large: clamp(var(--mds-font-size-large-fixed), calc(1.58 / var(--max-vw) * 100vw), 1.58rem);
+  --mds-font-size-x-large: clamp(var(--mds-font-size-x-large-fixed), calc(1.75 / var(--max-vw) * 100vw), 1.75rem);
+  --mds-font-size-xx-large: clamp(var(--mds-font-size-xx-large-fixed), calc(2.88 / var(--max-vw) * 100vw), 2.88rem);
+  --mds-font-size-xxx-large: clamp(var(--mds-font-size-xxx-large-fixed), calc(3.842 / var(--max-vw) * 100vw), 3.842rem);
+  /* Font weights  */
+  --mds-font-weight-light: 300;
+  --mds-font-weight-normal: 400;
+  --mds-font-weight-semibold: 500;
+  --mds-font-weight-bold: 700;
+  /* Icon size. */
+  --mds-icon-size-normal: 1.4em;
+  /* Logo size. */
+  --mds-logo-size: 184px;
+  /**
+  * @tokens Line height
+  * @presenter LineHeight
+  */
+  --mds-line-height-dense: 1.2;
+  --mds-line-height-normal: 1.4;
+  --mds-line-height-loose: 1.8;
+  /**
+  * @tokens Z-index
+  * @presenter Shadow
+  */
+  --mds-z-index-drawer: 700;
+  --mds-z-index-dialog: 800;
+  --mds-z-index-dropdown: 900;
+  --mds-z-index-toast: 950;
+  --mds-z-index-tooltip: 1000;
+  /**
+  * @tokens Icons
+  * @presenter Shadow
+  */
+  /* TODO: later we should probably refactor this. Hardcoding colors in SVG
+   in a CSS custom property makes it impossible to style/override color etc
+   which diminishes a lot of the value of using an SVG.
+  */
+  /* TODO: later given CSS custom properties cascade they don't all need to be
+  set at the :root level as 'globals' and even if so, they can be added
+  to :root from any file (they would be merged into any other :root CSS ruleset
+  by the browser). These variables would be better scoped/organized in an
+  icons.css file or in the latter cases, search.css so they're collocated
+  with the components they are used in.
+  */
+  --mds-icon-error: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 512 512'><title>Alert Circle</title><path fill='none' d='M240 304h32l6-160h-44l6 160z'/><path fill='rgb(237, 27, 47)' d='M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm20 319.91h-40v-40h40zM272 304h-32l-6-160h44z'/></svg>");
+  --mds-icon-search-black: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 512 512"><path d="M464 428L339.92 303.9a160.48 160.48 0 0030.72-94.58C370.64 120.37 298.27 48 209.32 48S48 120.37 48 209.32s72.37 161.32 161.32 161.32a160.48 160.48 0 0094.58-30.72L428 464zM209.32 319.69a110.38 110.38 0 11110.37-110.37 110.5 110.5 0 01-110.37 110.37z"/></svg>');
+  --mds-icon-search-white: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 512 512"><path d="M464 428L339.92 303.9a160.48 160.48 0 0030.72-94.58C370.64 120.37 298.27 48 209.32 48S48 120.37 48 209.32s72.37 161.32 161.32 161.32a160.48 160.48 0 0094.58-30.72L428 464zM209.32 319.69a110.38 110.38 0 11110.37-110.37 110.5 110.5 0 01-110.37 110.37z"/></svg>');
+}
+
+/* larger screens */
+
+@media (min-width: 720px) {
+  :root {
+    /* Space options are based on the --space-unit value. */
+    --space-unit: 1rem;
+  }
+}
+
+/* Wide container at larger viewports. */
+
+@media screen and (min-width: 1200px) {
+  :root {
+    --mds-container-max-width: 1170px;
+  }
+}
+
+/* MDS font-face definitions. */
+
+/* Sans-regular. */
+
+@font-face {
+  font-family: McGillSans-Regular;
+
+  src: url("../fonts/McGillSans-Regular.eot");
+
+  src:
+    url("../fonts/McGillSans-Regular.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSans-Regular.woff") format("woff"),
+    url("../fonts/McGillSans-Regular.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Sans-medium. */
+
+@font-face {
+  font-family: McGillSans-Medium;
+
+  src: url("../fonts/McGillSans-Medium.eot");
+
+  src:
+    url("../fonts/McGillSans-Medium.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSans-Medium.woff") format("woff"),
+    url("../fonts/McGillSans-Medium.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Sans-bold. */
+
+@font-face {
+  font-family: McGillSans-Bold;
+
+  src: url("../fonts/McGillSans-Bold.eot");
+
+  src:
+    url("../fonts/McGillSans-Bold.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSans-Bold.woff") format("woff"),
+    url("../fonts/McGillSans-Bold.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Sans-italic. */
+
+@font-face {
+  font-family: McGillSans-Italic;
+
+  src: url("../fonts/McGillSans-Italic.eot");
+
+  src:
+    url("../fonts/McGillSans-Italic.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSans-Italic.woff") format("woff"),
+    url("../fonts/McGillSans-Italic.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Sans-bold italic. */
+
+@font-face {
+  font-family: McGillSans-BoldItalic;
+
+  src: url("../fonts/McGillSans-BoldItalic.eot");
+
+  src:
+    url("../fonts/McGillSans-BoldItalic.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSans-BoldItalic.woff") format("woff"),
+    url("../fonts/McGillSans-BoldItalic.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/*
+ Serif
+ */
+
+/* Serif-regular. */
+
+@font-face {
+  font-family: McGillSerif-Regular;
+
+  src: url("../fonts/McGillSerif-Regular.eot");
+
+  src:
+    url("../fonts/McGillSerif-Regular.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSerif-Regular.woff") format("woff"),
+    url("../fonts/McGillSerif-Regular.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Serif-medium. */
+
+@font-face {
+  font-family: McGillSerif-Medium;
+
+  src: url("../fonts/McGillSerif-Medium.eot");
+
+  src:
+    url("../fonts/McGillSerif-Medium.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSerif-Medium.woff") format("woff"),
+    url("../fonts/McGillSerif-Medium.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Serif-bold. */
+
+@font-face {
+  font-family: McGillSerif-Bold;
+
+  src: url("../fonts/McGillSerif-Bold.eot");
+
+  src:
+    url("../fonts/McGillSerif-Bold.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSerif-Bold.woff") format("woff"),
+    url("../fonts/McGillSerif-Bold.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Serif-bold italic. */
+
+@font-face {
+  font-family: McGillSerif-BoldItalic;
+
+  src: url("../fonts/McGillSerif-BoldItalic.eot");
+
+  src:
+    url("../fonts/McGillSerif-BoldItalic.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSerif-BoldItalic.woff") format("woff"),
+    url("../fonts/McGillSerif-BoldItalic.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/* Serif-italic. */
+
+@font-face {
+  font-family: McGillSerif-Italic;
+
+  src: url("../fonts/McGillSerif-Italic.eot");
+
+  src:
+    url("../fonts/McGillSerif-Italic.eot?#iefix")
+    format("embedded-opentype"),
+    url("../fonts/McGillSerif-Italic.woff") format("woff"),
+    url("../fonts/McGillSerif-Italic.ttf") format("truetype");
+
+  font-display: swap;
+}
+
+/*
+
+    Utility and helper classes applies low level narrow scope adjustments
+    (often providing only one declaration) and
+    has very high specificity, which can override previous styles.
+    It can be reused and is not tied to any specific piece of UI.
+
+TODO:
+ - Discuss changing the lengthy utility names from mds-u-?? to something like --u-??
+*/
+
+/* Center content. */
+
+.mds-mx--center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*
+    Margins.
+    TODO: we should consider replacing sm, md and large with 1, 2, 3 instead
+*/
+
+/* Y axis margin */
+
+.mds-my--small {
+  margin-top: var(--mds-spacing-small);
+  margin-bottom: var(--mds-spacing-small);
+}
+
+.mds-my--large {
+  margin-top: var(--mds-spacing-large);
+  margin-bottom: var(--mds-spacing-large);
+}
+
+/* Top margin */
+
+.mds-mt--small {
+  margin-top: var(--mds-spacing-small);
+}
+
+.mds-mt--large {
+  margin-top: var(--mds-spacing-x-large);
+}
+
+/* Bottom margin */
+
+.mds-mb--small {
+  margin-bottom: var(--mds-spacing-small);
+}
+
+.mds-mb--large {
+  margin-bottom: var(--mds-spacing-x-large);
+}
+
+/* Right margin */
+
+.mds-mr--small {
+  margin-right: var(--mds-spacing-small);
+}
+
+.mds-mr--large {
+  margin-right: var(--mds-spacing-x-large);
+}
+
+/* Left margin */
+
+.mds-ml--small {
+  margin-left: var(--mds-spacing-small);
+}
+
+.mds-ml--large {
+  margin-left: var(--mds-spacing-x-large);
+}
+
+/*
+ Type utilities.
+ */
+
+/* Alignment */
+
+.mds-text--center {
+  text-align: center;
+}
+
+.mds-text--right {
+  text-align: right;
+}
+
+.mds-text--left {
+  text-align: left;
+}
+
+.mds-text--justify {
+  text-align: justify;
+}
+
+/* Size */
+
+.mds-text--small {
+  font-size: var(--mds-font-size-small);
+}
+
+.mds-text--medium {
+  font-size: var(--mds-font-size-medium);
+}
+
+.mds-text--large {
+  font-size: var(--mds-font-size-large);
+}
+
+.mds-text--x-large {
+  font-size: var(--mds-font-size-x-large);
+}
+
+.mds-text--xx-large {
+  font-size: var(--mds-font-size-xx-large);
+}
+
+.mds-text--xxx-large {
+  font-size: var(--mds-font-size-xxx-large);
+}
+
+/* Fixed font-size on any viewport i.e., no scaling. */
+
+.mds-text--large-fixed {
+  font-size: var(--mds-font-size-large-fixed);
+}
+
+.mds-text--x-large-fixed {
+  font-size: var(--mds-font-size-x-large-fixed);
+}
+
+.mds-text--xx-large-fixed {
+  font-size: var(--mds-font-size-xx-large-fixed);
+}
+
+.mds-text--xxx-large-fixed {
+  font-size: var(--mds-font-size-xxx-large-fixed);
+}
+
+/*
+ List utilities.
+ */
+
+.mds-list--none {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The following is cribbed from the Drupal hidden.module.css and prefixed with mds. */
+
+/* TODO: we may want to document these utilities in storybook if we have time. */
+
+/**
+ * @file
+ * Utility classes to hide elements in different ways.
+ */
+
+/**
+ * Hide elements from all users.
+ *
+ * Used for elements which should not be immediately displayed to any user. An
+ * example would be collapsible details that will be expanded with a click
+ * from a user. The effect of this class can be toggled with the jQuery show()
+ * and hide() functions.
+ */
+
+.mds-hidden {
+  display: none;
+}
+
+/**
+ * Hide elements visually, but keep them available for screen readers.
+ *
+ * Used for information required for screen reader users to understand and use
+ * the site where visual display is undesirable. Information provided in this
+ * manner should be kept concise, to avoid unnecessary burden on the user.
+ * "!important" is used to prevent unintentional overrides.
+ */
+
+.mds-visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+
+/**
+ * The .focusable class extends the .visually-hidden class to allow
+ * the element to be focusable when navigated to via the keyboard.
+ */
+
+.mds-visually-hidden.focusable:active,
+.mds-visually-hidden.focusable:focus {
+  position: static !important;
+  overflow: visible;
+  clip: auto;
+  width: auto;
+  height: auto;
+}
+
+/**
+ * Hide visually and from screen readers, but maintain layout.
+ */
+
+.mds-invisible {
+  visibility: hidden;
+}
+
+/*
+  TODO:
+   Other utilities to consider for the future.
+    - Z-index
+    - Transition
+    - Container
+*/
+
+/*
+
+  A 'Layout utility' class applies to high level non-cosmetic structural pattern
+  such as container, wrappers and layout systems.
+
+  Used on anything eg., components, block or elements.
+
+  Note: Making modifications to these types of class could potentially have
+  side effects in a lot of other unrelated places - make sure to test any changes.
+
+  */
+
+/*
+    File contains classes used for simple layouts of components
+    Boxes should be placed in Grids for better visual alignment.
+   - Fully baked components top and bottom margin will have to be added manually.
+
+   TODO:
+   - Confirm if gutters are expected by default.
+   - Hiding content on different devices (probably out of scope).
+*/
+
+/*
+ * Simple Grid layout options.
+ */
+
+/* Apply grid display defaults to classes prefixed with 'mds-o-grid-' */
+
+div[class*="mds-l-grid-"],
+div[class*=" mds-l-grid-"] {
+  align-items: var(--align, stretch);
+  display: grid;
+  gap: var(--gap, 0);
+  grid-template-columns: repeat(var(--col-number, 1), minmax(0, 1fr));
+}
+
+.mds-l-grid--cols-2 {
+  --col-number: 2;
+}
+
+.mds-l-grid--cols-3 {
+  --col-number: 3;
+}
+
+/*
+  TODO: Reconsider if we should support multiple sets of grids for different
+    sized devices, since we could provide on set an male that one set
+    responsive across all devices.
+    */
+
+/* Classes that effect larger displays such as desktop. */
+
+@media (min-width: 720px) {
+  .mds-l-grid--desktop-3 {
+    --col-number: 3;
+  }
+
+  .mds-l-grid--desktop-2 {
+    --col-number: 2;
+  }
+}
+
+/*
+ Boxes with various defined spacing.
+ Padding is used to maintain vertical alignment
+ and avoid collapsed spacing.
+ */
+
+.mds-l-box--small {
+  padding: var(--mds-spacing-medium);
+}
+
+.mds-l-box--standard {
+  padding: var(--mds-spacing-x-large);
+}
+
+/* Flex. */
+
+[class*="mds-l-flex"],
+[class*=" mds-l-flex"] {
+  /*
+      TODO: align-items and gap could be a component (block or modifier) exceptions.
+       Risk overloading the utility with too many properties.
+     */
+  display: flex;
+  /* Direction could be switched to row if needed. */
+  flex-flow: var(--direction, column) var(--wrap, wrap);
+  align-items: var(--align, stretch);
+  gap: var(--gap, var(--mds-spacing-small));
+  justify-content: var(--justify, center);
+}
+
+.mds-l-flex-col {
+  --direction: column;
+}
+
+.mds-l-flex-row {
+  --direction: row;
+  --gap: var(--mds-spacing-x-large);
+}
+
+/* No justify-content for larger screens for mds-l-flex. */
+
+/* TODO: when container-queries are broadly supported, this would be a great
+place for one! */
+
+@media (min-width: 720px) {
+  .mds-l-flex-col {
+    --justify: start;
+  }
+
+  .mds-l-flex-row {
+    --justify: start;
+  }
+}
+
+/*
+ Flex utilities.
+ */
+
+/* Align - top to bottom */
+
+.mds-l-align--center {
+  --align: center;
+}
+
+.mds-l-align--end {
+  --align: flex-end;
+}
+
+.mds-l-align--start {
+  --align: flex-start;
+}
+
+.mds-l-align--stretch {
+  --align: stretch;
+}
+
+/* Justify - right to left */
+
+.mds-l-justify--start {
+  --justify: flex-start;
+}
+
+.mds-l-justify--end {
+  --justify: flex-end;
+}
+
+.mds-l-justify--around {
+  --justify: space-around;
+}
+
+.mds-l-justify--between {
+  --justify: space-between;
+}
+
+.mds-l-justify--evenly {
+  --justify: space-evenly;
+}
+
+/*
+ Gap setting for Grid and Flex Objects.
+ */
+
+.mds-l-gap--1 {
+  --gap: var(--mds-spacing-small);
+}
+
+.mds-l-gap--2 {
+  --gap: var(--mds-spacing-large);
+}
+
+.mds-l-gap--3 {
+  --gap: var(--mds-spacing-x-large);
+}
+
+/*
+ Theme.
+*/
+
+/*
+ MDS Dark theme
+ */
+
+.mds-dark {
+  --heading-color: var(--mds-color-white);
+  --border-style: var(--mds-border-thin-light);
+  --color-text: var(--mds-color-gray-200);
+  background: var(--mds-color-black);
+  color: var(--mds-color-gray-200);
+}
+
+.mds-dark a {
+  --link-color: var(--mds-color-white);
+}
+
+.mds-dark a:hover {
+  --decoration: underline;
+}
+
+/*
+ Button styling.
+ */
+
+.mds-dark :is(button, .mds-button, input[type="reset"], ::part(toggle-button)) {
+  --color-background: transparent;
+  --color-border: var(--mds-color-white);
+  --color-text: var(--mds-color-white);
+}
+
+.mds-dark :is(button, .mds-button, input[type="reset"], ::part(toggle-button)):hover {
+  --color-background: var(--mds-color-white);
+  --color-border: transparent;
+  --color-text: var(--mds-color-black);
+  --decoration: none;
+}
+
+/* Secondary button - Dark mode */
+
+.mds-dark .mds-button.mds-button--secondary {
+  --color-background: var(--mds-color-white);
+  --color-border: var(--mds-color-white);
+  --color-text: var(--mds-color-black);
+}
+
+.mds-dark .mds-button.mds-button--secondary:hover {
+  --color-background: transparent;
+  --color-border: var(--mds-color-white);
+  --color-text: var(--mds-color-white);
+}
+
+/* Branded button. */
+
+.mds-dark .mds-button.mds-button--branded {
+  --color-background: var(--mds-color-primary-500);
+  --color-border: var(--mds-color-primary-500);
+  --color-text: var(--mds-color-white);
+}
+
+.mds-dark .mds-button.mds-button--branded:hover {
+  --color-background: transparent;
+  --color-border: var(--mds-color-primary-500);
+  --color-text: var(--mds-color-primary-500);
+}
+
+/* Input styling. */
+
+.mds-dark :where(input, textarea, select) {
+  --focus: 2px var(--mds-color-white);
+  --color-background: transparent;
+  --input-border: var(--mds-border-thin-light);
+  --color-text: var(--mds-color-gray-100);
+}
+
+/* Disabled input and elements. */
+
+.mds-dark :is(input[disabled], :disabled) {
+  --color-background: var(--mds-color-gray-500);
+}
+
+.mds-dark :disabled input {
+  --color-border: transparent;
+}
+
+/* Toggle-switch rendering of a checkbox styling. */
+
+.mds-dark input[type="checkbox"].mds-switch {
+  --ab: var(--mds-color-white);
+}
+
+.mds-dark input[type="checkbox"].mds-switch:checked {
+  --ab: var(--mds-color-black);
+  --color-background: var(--mds-color-white);
+}
+
+/* Checkbox and radio button. */
+
+.mds-dark input[type="checkbox"]::after {
+  border: var(--border-width) solid var(--mds-color-white);
+  border-top: 0;
+  border-left: 0;
+}
+
+.mds-dark input[type="radio"]:is(:checked,:focus),
+.mds-dark input[type="checkbox"]:is(:checked,:focus) {
+  --color-background: var(--mds-color-black);
+}
+
+.mds-dark input[type="radio"]::after {
+  background: var(--mds-color-white);
+}
+
+.mds-dark input[type="submit"] {
+  --color-background: var(--mds-color-white);
+  --color-border: var(--mds-color-white);
+  --color-text: var(--mds-color-gray-900);
+  --input-border: 2px solid var(--mds-color-white);
+}
+
+.mds-dark input[type="submit"]:hover {
+  --color-background: var(--mds-color-black);
+  --color-border: var(--mds-color-white);
+  --color-text: var(--mds-color-white);
+}
+
+/*
+   MDS Light theme
+   */
+
+.mds-light {
+  background: var(--mds-color-white);
+  color: var(--mds-color-black);
+}
+
+/* We use normalize as our reset solution.  */
+
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers.
+ */
+
+body {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+
+img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+
+legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 10+.
+ */
+
+template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+
+[hidden] {
+  display: none;
+}
+
+/* TODO: Replace tailwind utilities (e.g., .p-4) with a mds grid framework - WMS-24034	*/
+
+.invisible {
+  visibility: hidden;
+}
+
+.relative {
+  position: relative;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.table {
+  display: table;
+}
+
+.grid {
+  display: grid;
+}
+
+.contents {
+  display: contents;
+}
+
+.hidden {
+  display: none;
+}
+
+@-webkit-keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@-webkit-keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+.border {
+  border-width: 1px;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.italic {
+  font-style: italic;
+}
+
+*, ::before, ::after {
+  --tw-shadow: 0 0 #0000;
+}
+
+*, ::before, ::after {
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+}
+
+/*
+ Normalize overrides.
+ */
+
+/*
+  Consistent box-sizing
+  - making it easier to change alternative component box-sizing
+*/
+
+html {
+  box-sizing: border-box;
+  /* Unit-less line-height so child elements inherit the raw number value */
+  line-height: 1.5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: 1.5;
+}
+
+/* Removes margin on elements. */
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+/* Default font-weight. */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: initial;
+}
+
+/* Vertically align elements. */
+
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  vertical-align: middle;
+}
+
+/* Remove margin and padding on fieldset element. */
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+/* Details element. */
+
+details summary {
+  cursor: pointer;
+}
+
+details summary > * {
+  /* Avoid undesirable wrapping. */
+  display: inline;
+}
+
+/*
+  TODO:
+  - ensure mds-heading classes also have the other properties like line-height
+ */
+
+/**
+  Typography.
+*/
+
+h1,
+.mds-h1 {
+  font-family: var(--mds-font-serif);
+  font-size: var(--mds-font-size-xx-large);
+}
+
+h2,
+.mds-h2 {
+  --heading-top-margin: var(--mds-spacing-x-large);
+  font-family: var(--mds-font-serif);
+  font-size: var(--mds-font-size-x-large);
+}
+
+h3,
+.mds-h3 {
+  font-family: var(--mds-font-sans);
+  font-size: var(--mds-font-size-large);
+}
+
+h4,
+.mds-h4 {
+  font-family: var(--mds-font-serif-medium);
+  font-size: var(--mds-font-size-medium);
+  color: var(--heading-color, var(--mds-color-gray-600));
+}
+
+h5,
+.mds-h5 {
+  font-family: var(--mds-font-sans-medium);
+  font-size: var(--mds-font-size-medium);
+  color: var(--heading-color, var(--mds-color-gray-600));
+}
+
+:is(h1, h2, h3, h4, h5) {
+  line-height: var(--mds-line-height-dense);
+  margin-bottom: var(--heading-bottom-margin, var(--mds-spacing-xx-small));
+  margin-top: var(--heading-top-margin, var(--mds-spacing-medium));
+}
+
+/* Headings with direct paragraph siblings will have tighter space. */
+
+p + :is(h3, h4, h5) {
+  --heading-top-margin: var(--mds-spacing-medium);
+}
+
+/* Spacing between different heading elements. */
+
+h1 + h2,
+h2 + h3,
+h3 + h4,
+h4 + h5,
+h5 + h6 {
+  --heading-top-margin: var(--mds-spacing-small);
+}
+
+/* Spacing between the heading elements. */
+
+h1 + h1,
+h2 + h2,
+h3 + h3,
+h4 + h4,
+h5 + h5,
+h6 + h6 {
+  --heading-top-margin: var(--mds-spacing-large);
+}
+
+/* First child Headings should reside flush to the top of the container. */
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  --heading-top-margin: 0;
+}
+
+/* Body font. */
+
+html {
+  font-family: var(--mds-font-sans);
+}
+
+/* Bold font weight usually used on paragraphs. */
+
+b,
+strong,
+.mds-copy--bold {
+  font-family: var(--mds-font-sans-bold);
+}
+
+/* Standard italics. */
+
+em,
+i,
+.mds-copy--italic {
+  font-family: var(--mds-font-sans-italic);
+  font-style: normal;
+}
+
+/*
+ Header variations.
+ */
+
+/* Serif italic. */
+
+h1 em {
+  font-family: var(--mds-font-serif-italic);
+  font-style: normal;
+}
+
+h2 em {
+  font-family: var(--mds-font-serif-italic);
+  font-style: normal;
+}
+
+h3 em {
+  font-family: var(--mds-font-serif-italic);
+  font-style: normal;
+}
+
+h4 em {
+  font-family: var(--mds-font-serif-italic);
+  font-style: normal;
+}
+
+/* Sans italic. */
+
+h5 em {
+  font-family: var(--mds-font-sans-italic);
+  font-style: normal;
+}
+
+h6 em {
+  font-family: var(--mds-font-sans-italic);
+  font-style: normal;
+}
+
+/* For expanded text on long hover of an abbreviation, include the title attribute. */
+
+abbr {
+  cursor: help;
+  border-bottom: var(--mds-border-info);
+}
+
+/* Contact information. */
+
+address {
+  margin-bottom: var(--mds-spacing-medium);
+}
+
+/*
+ Quotes.
+ */
+
+/* Quoting blocks of content from another source. */
+
+blockquote,
+.mds-text-quote--pulled {
+  margin: var(--mds-spacing-large) 0;
+  font-size: var(--mds-font-size-x-large);
+  font-family: var(--mds-font-serif-italic);
+  line-height: var(--mds-line-height-loose);
+}
+
+/*
+ Cite should not be nested in blockquotes
+ see https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-cite-element
+ */
+
+cite {
+  font-style: normal;
+  font-family: var(--mds-font-sans-bold);
+  font-size: var(--mds-font-size-small);
+}
+
+/*
+  Lists.
+  */
+
+ol {
+  list-style: decimal inside;
+}
+
+ul {
+  list-style: disc inside;
+}
+
+li {
+  line-height: var(--mds-line-height-normal);
+  margin-bottom: var(--list-item-margin-bottom, var(--mds-spacing-x-small));
+}
+
+/* Paragraph styling. */
+
+p {
+  font-size: var(--mds-font-size-medium);
+  line-height: var(--mds-line-height-normal);
+  margin: var(--paragraph-top-margin, var(--mds-spacing-small)) 0 var(--paragraph-bottom-margin, 0) 0;
+}
+
+p:first-child {
+  --paragraph-top-margin: 0;
+  --paragraph-bottom-margin: var(--mds-spacing-small);
+}
+
+/* Anchor tags in specified elements will have a standard text underline. mds-button is excluded. */
+
+:where(p,dl) a:is(:not(.mds-button)) {
+  --decoration: underline;
+}
+
+/* Unordered list with in paragraphs display with a disc. */
+
+p ul {
+  list-style: disc;
+}
+
+/* Load the correct font family for combinations of bold and italics in paragraphs. */
+
+p :where(em > strong, strong > em, i > strong, strong > i) {
+  font-family: var(--mds-font-sans-bold-italic);
+}
+
+/*
+  Description.
+  A list of terms with their associated descriptions.
+*/
+
+dl {
+  margin-bottom: var(--mds-spacing-medium);
+}
+
+dt {
+  font-family: var(--mds-font-sans-bold);
+}
+
+dt,
+dd {
+  line-height: var(--mds-line-height-normal);
+}
+
+/*
+ Code.
+*/
+
+code,
+pre {
+  font-family: var(--mds-font-mono);
+  border-radius: var(--mds-border-radius);
+  font-size: inherit;
+}
+
+/*
+ Use <pre> for multiple lines of code.
+ Be sure to escape any angle brackets in the code for proper rendering.
+*/
+
+pre {
+  display: block;
+  padding: var(--mds-spacing-xx-small);
+  margin: 0 0 var(--mds-spacing-medium);
+  line-height: var(--mds-line-height-normal);
+  word-break: break-word;
+  white-space: pre-wrap;
+  background: var(--mds-color-gray-900);
+  color: var(--mds-color-white);
+  -moz-tab-size: 2;
+    -o-tab-size: 2;
+       tab-size: 2;
+}
+
+/* Wrap inline snippets of code with <code>. */
+
+p > code,
+li > code,
+dd > code,
+td > code {
+  background: var(--mds-color-info-100);
+  word-wrap: break-word;
+  padding: var(--mds-spacing-xx-small) var(--mds-spacing-x-small);
+  white-space: nowrap;
+}
+
+/* Details element. */
+
+details {
+  border-top: var(--mds-border-thin-light);
+  border-bottom: var(--mds-border-thin-light);
+  border-right: 0;
+  border-left: 0;
+  padding: var(--mds-spacing-x-small);
+}
+
+/* Divider style usually used on hr elements. */
+
+.mds-divider {
+  --hr-margin-y: 0;
+  --hr-border-style: var(--mds-border-thin-light);
+}
+
+/*
+  Text modifiers.
+  */
+
+/* Muted text - most likely gray text. */
+
+.mds-copy--muted {
+  color: var(--mds-color-gray-400);
+}
+
+.mds-dark .mds-copy--muted {
+  --muted-color: var(--mds-color-gray-300);
+}
+
+/* Lead text - Make a paragraph stand out. */
+
+.mds-copy--lead {
+  font-size: var(--mds-font-size-large);
+  color: var(--mds-color-gray-500);
+}
+
+/* Smallest standard type size. */
+
+small,
+.mds-copy--micro {
+  font-family: var(--mds-font-sans);
+  font-size: var(--mds-font-size-small);
+  line-height: var(--mds-line-height-dense);
+}
+
+/* Presentation styles. */
+
+.mds-presentation--stats {
+  margin: unset;
+  display: block;
+  font-size: var(--mds-font-size-xxx-large);
+  font-family: var(--mds-font-serif);
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+/* Caption for presentation text. */
+
+.mds-presentation--caption {
+  margin: unset;
+  font-size: var(--mds-font-size-medium);
+  font-family: var(--mds-font-sans-medium);
+  text-align: center;
+}
+
+/* Captions below have additional margin to mirror how a top caption displays. */
+
+.mds-presentation--stats + .mds-presentation--caption {
+  margin-top: var(--mds-spacing-xx-small);
+}
+
+.mds-presentation--container {
+  padding-top: var(--mds-spacing-large);
+  padding-bottom: var(--mds-spacing-x-large);
+  border-top: 1px dashed var(--mds-color-black);
+  border-bottom: 1px dashed var(--mds-color-black);
+}
+
+/*
+ Standardizes spacing and padding for form elements.
+ */
+
+/* Select and base input padding. Padding for text specific inputs will be handled uniquely. */
+
+select,
+input {
+  padding: var(--mds-spacing-x-small);
+}
+
+/* Text specific input padding to allow for possible icons as background images. */
+
+input[type="text"],
+textarea {
+  padding: var(--mds-spacing-x-small) var(--mds-spacing-large) var(--mds-spacing-x-small) var(--mds-spacing-x-small);
+}
+
+/* All Inputs, textarea and select styles. */
+
+input,
+textarea,
+select {
+  --input-font: inherit;
+  --color-background: var(--mds-color-white);
+  --color-text: var(--mds-color-black);
+  --input-border: var(--mds-border-thin);
+  --focus: 2px var(--mds-color-black);
+  background-color: var(--color-background);
+  border: var(--input-border);
+  box-sizing: border-box;
+  color: var(--color-text, var(--mds-color-black));
+  /* Inherit theme font styling. */
+  font-family: var(--input-font);
+  margin: 0;
+  font-size: max(var(--mds-font-sans-medium), 1em);
+  transition: box-shadow 0.2s, var(--mds-transition-medium);
+  outline: none;
+}
+
+/* Hover styles. */
+
+input:hover,
+textarea:hover,
+select:hover {
+  box-shadow: 0 0 0 var(--focus);
+}
+
+/* Labels. */
+
+/* Centers elements within Labels such as the preferred <input> tag. */
+
+label {
+  align-items: center;
+  -moz-column-gap: var(--mds-spacing-x-small);
+       column-gap: var(--mds-spacing-x-small);
+  display: flex;
+  font-family: var(--mds-font-sans);
+  margin-bottom: var(--mds-spacing-small);
+}
+
+/* Disabled label styling when there are nested disabled inputs. */
+
+label:has(> input[disabled], > input:disabled) {
+  color: var(--mds-color-gray-400);
+}
+
+/* Fieldset styling. */
+
+fieldset {
+  border: var(--border-style, var(--mds-border-thin));
+  display: block;
+  padding: var(--mds-spacing-medium) var(--mds-spacing-large) var(--mds-spacing-large);
+}
+
+/* Legend styling. Displays similar to H5 heading. */
+
+legend {
+  font-family: var(--mds-font-sans);
+  font-size: var(--mds-font-size-medium);
+  line-height: var(--mds-line-height-normal);
+  padding: var(--mds-spacing-x-small) var(--mds-spacing-xx-small);
+}
+
+/*
+  Disabled inputs.
+*/
+
+input[disabled],
+:disabled {
+  --input-border: var(--mds-color-gray-300);
+  --color-background: var(--mds-color-gray-200);
+  --color-text: var(--mds-color-gray-400);
+  border: var(--mds-border-thin-light);
+  cursor: not-allowed;
+}
+
+/* Required fields. */
+
+:required {
+  /*
+  Field styling stays the same however,
+  required fields are indicated with a '*' beside the label.
+  */
+}
+
+/*
+  Focus
+  Utilize browser styling to maintain accessibility.
+  */
+
+:focus {
+  /* Displays as outline. */
+  box-shadow: 0 0 0 var(--focus);
+}
+
+/* Removes state feedback. */
+
+:disabled:hover {
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Read only. */
+
+.input[readonly] {
+  border-style: dotted;
+  cursor: not-allowed;
+  color: var(--mds-color-gray-400);
+}
+
+/* File type spacing adjustments to align visually with other inputs. */
+
+input[type="file"] {
+  font-size: 0.9em;
+  padding-top: 0.35rem;
+}
+
+/* Submit styling. */
+
+input[type="submit"] {
+  --color-text: var(--mds-color-white);
+  --color-background: var(--mds-color-black);
+  --color-border: var(--mds-color-black);
+  --input-border: var(--mds-border-medium);
+  --input-font: var(--mds-font-sans-medium);
+  border-radius: var(--mds-border-radius);
+  display: inline-flex;
+  padding: var(--mds-spacing-x-small) var(--mds-spacing-medium);
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  --color-text: var(--mds-color-black);
+  --color-background: var(--mds-color-white);
+  --color-border: var(--mds-color-black);
+  box-shadow: none;
+  text-decoration: none;
+}
+
+/* Reset input styling. */
+
+input[type="reset"] {
+  /* Uses the same styling as the .mds-button */
+}
+
+/*
+  Checkbox and Radio inputs.
+  - The input selector is used as the container which displays a background.
+  - ::after pseudo element is used as the indicator or button.
+*/
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  /*
+  Base styling for checkbox and radio buttons
+  input element used as a container.
+  */
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    --knob-size: 14px;
+    --border-width: 2px;
+    --input-size: calc(var(--knob-size) + var(--border-width));
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    height: var(--input-size);
+    width: var(--input-size);
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  /* ::after pseudo element provides an indicator.  */
+
+  input[type="checkbox"]::after,
+  input[type="radio"]::after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transform: scale(var(--s, 0.7));
+    opacity: var(--o, 0%);
+  }
+
+  /*
+    Radio buttons.
+  */
+
+  /* Radio specific ui. */
+
+  input[type="radio"] {
+    border-radius: 50%;
+  }
+
+  /* Round ::after pseudo radio element. */
+
+  input[type="radio"]::after {
+    width: var(--knob-size);
+    height: var(--knob-size);
+    background: var(--mds-color-black);
+    border-radius: 50%;
+  }
+
+  /* Radio focus and checked state. */
+
+  input[type="radio"]:checked,
+  input[type="radio"]:focus {
+    --o: 1;
+    --s: 0.8;
+    --color-background: var(--mds-color-white);
+  }
+
+  /*
+    Creates a faux checkbox by adding a rotated outline rectangle
+    with two borders removed.
+  */
+
+  input[type="checkbox"]::after {
+    width: 6px;
+    height: 9px;
+    border: var(--border-width) solid var(--mds-color-black);
+    border-top: 0;
+    border-left: 0;
+    left: 4px;
+    top: 1px;
+    transform: rotate(var(--r, 20deg));
+  }
+
+  /* Checked checkbox */
+
+  input[type="checkbox"]:checked {
+    --color-background: var(--mds-color-white);
+    --r: 43deg;
+    --o: 1;
+  }
+
+  /*
+  Toggle switch Input used on checkboxes.
+  */
+
+  input[type="checkbox"].mds-switch {
+    --switch-width: calc(var(--knob-size) * 2);
+    --switch-height: calc(var(--input-size) + var(--border-width));
+    --switch-radius: var(--knob-size);
+    width: var(--switch-width);
+    height: var(--switch-height);
+    border-radius: var(--switch-radius);
+  }
+
+  /* ::after element applies the knob. */
+
+  input[type="checkbox"].mds-switch::after {
+    --o: 1;
+    left: 1px;
+    top: 1px;
+    border-radius: 50%;
+    border: none;
+    width: var(--knob-size);
+    height: var(--knob-size);
+    transform: translateX(var(--x, 0));
+    background: var(--ab, var(--mds-color-black));
+  }
+
+  /* Toggle checked. */
+
+  input[type="checkbox"].mds-switch:checked {
+    --ab: var(--mds-color-white);
+    --x: 10px;
+    --color-background: var(--mds-color-black);
+  }
+
+  /* Drop the opacity of the toggle knob when the input is disabled */
+
+  input[type="checkbox"].mds-switch:disabled:not(:checked)::after {
+    opacity: 60%;
+  }
+}
+
+/*
+ McGill-ds form input classes.
+ */
+
+/* Input help text description. */
+
+.mds-form-item--hint {
+  color: var(--mds-color-gray-400);
+  font-size: var(--mds-font-size-small);
+  margin-top: var(--mds-spacing-xx-small);
+  margin-bottom: 0;
+}
+
+/*
+  Error messages
+*/
+
+/* Error icon. Displays error icon in the field */
+
+input[type="text"].mds-form-item--error,
+input[type="file"].mds-form-item--error {
+  --input-border: var(--mds-border-error);
+  background-image: var(--mds-icon-error);
+  background-position: 98% 50%;
+  background-repeat: no-repeat;
+}
+
+/* Error message description. */
+
+.mds-form-item--error-message {
+  color: var(--mds-color-error-500);
+}
+
+/* Required fields. To be used on form labels. */
+
+.mds-label--required::after {
+  content: " *";
+  color: var(--mds-color-error-500);
+}
+
+/* Wrapper to help with spacing between form elements. */
+
+/*
+  TODO: Make '.mds-form-item' more generic since we can use this declaration in multiple instances e.g., .mds-clearfix
+  */
+
+.mds-form-item {
+  clear: both;
+}
+
+/*
+  Utilities.
+*/
+
+.mds-form--inline {
+  --gap: var(--mds-spacing-x-small);
+  --align: flex-start;
+  --justify: start;
+  --direction: row;
+  display: flex;
+  gap: var(--gap);
+}
+
+/*
+ Table element.
+ */
+
+table {
+  font-size: var(--mds-font-size-medium);
+  margin: var(--mds-spacing-medium) 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Captions used with Tables */
+
+table caption {
+  font-size: var(--mds-font-size-large);
+  text-align: left;
+  margin-bottom: var(--mds-spacing-small);
+}
+
+/* Tabular headers and tabular data. */
+
+th,
+td {
+  padding: var(--mds-spacing-x-small);
+  text-align: left;
+  vertical-align: top;
+  border: var(--mds-border-thin);
+}
+
+/* Table head and Table foot. */
+
+thead,
+tfoot {
+  background-color: var(--mds-color-gray-200);
+}
+
+/* Tabular headers */
+
+tbody th {
+  background-color: var(--mds-color-gray-900);
+  color: var(--mds-color-white);
+}
+
+tbody tr:nth-child(even) th {
+  background-color: var(--mds-color-black);
+}
+
+/* Zebra strip table rows */
+
+tbody tr:nth-child(even) {
+  background-color: var(--mds-color-gray-100);
+}
+
+/* Table row hover effect */
+
+tbody tr:hover {
+  background-color: var(--mds-color-gray-200);
+}
+
+/* Prevents elements from extending outside of container. */
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+  * TODO:
+   - Consider what to do with footer and heading margins - we don't want variation on spacing across different sites
+   - default background color of components are white which have a black option.
+  */
+
+/*
+* Base styles: opinionated defaults.
+*/
+
+html {
+  color: var(--mds-color-black);
+  /*
+  Changing the base font size will impact all relative font-sizes.
+  */
+  font-size: 16px;
+  line-height: var(--mds-line-height-dense);
+}
+
+/*
+ Links.
+ */
+
+/* Standard anchor tag */
+
+a {
+  -webkit-text-decoration: var(--decoration, none);
+          text-decoration: var(--decoration, none);
+  color: var(--link-color, initial);
+}
+
+a:hover {
+  --link-color: var(--mds-color-primary-500);
+}
+
+*:focus {
+  outline-color: var(--mds-color-a11y);
+}
+
+/*
+* Remove the gap between audio, canvas, iframes,
+* images, videos and the bottom of their containers.
+*/
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/* Allow only vertical resizing of text areas. */
+
+textarea {
+  resize: vertical;
+}
+
+/* A better looking default horizontal rule. */
+
+hr {
+  border-width: 0;
+  border-top: var(--hr-border-style, var(--mds-border-thin));
+  color: inherit;
+  display: block;
+  height: 0;
+  margin: var(--hr-margin-y, var(--mds-spacing-medium)) 0;
+  padding: 0;
+}
+
+/* Spacing for Lists.  */
+
+ul,
+ol {
+  margin-left: var(--mds-spacing-medium);
+  padding: 0 var(--mds-spacing-medium);
+  list-style-position: outside;
+}
+
+/* Import MDS CSS - the CSS that's custom to the MDS. */
+
+/* Anything added to a TW layer can be purged if not used.
+ So can be used with internal templates only.
+ Use @apply to share it out of layer to preserve it for consumer use.
+*/
+
+/* Styles .mds-button variants, since styling tags other than button
+  is sometimes desired. */
+
+/* Box. TODO: use @import and put this (and button CSS) into own files. */
+
+/*
+  TODO: Need a no-padding box variant or modifier I think... Is this a good idea?
+  If its just a plain div w/ no stying...maybe just use a div? But on the other hand, better to be explicit?
+  */
+
+/* NB: Anything outside a `@layer{}`, will not be purged by default.
+  This is useful for including CSS that will be needed regardless of templates.
+  An example might be some custom class that Tailwind doesn't define but might
+  be useful in the design system. Perhaps things that might get applied to the
+  <body> or debugging classes.
+*/
+
+/* Flex with flex-wrap only on small-screens.
+  Easy way to create multi-column layout that defaults to single column on smaller screens.
+*/
+
+.mds-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .mds-flex {
+    flex-wrap: nowrap;
+  }
+}
+
+/* Import MDS config CSS. TODO: this should probably be at the top. */
+
+/*
+  Configuration for customization.
+  TODO: this entire file should be reconsidered.
+  Why does it exist when other variables are in other files?
+  I don't think we want global variables set in more than one place.
+ */
+
+:root {
+  /* We should not set this; this should be handled per-project or by a utility class that can be added/removed. */
+  /* --mds-site-width: 720px;
+    --mds-max-site-width: 1200px; */
+}
+
+/* Import MDS component CSS. */
+
+/* Imports all component CSS. */
+
+/*
+ * Button styles
+ */
+
+/* Default button */
+
+.mds-button,
+::part(toggle-button),
+button,
+input[type="reset"] {
+  --color-text: var(--mds-color-black);
+  --color-background: var(--mds-color-white);
+  --color-border: var(--mds-color-black);
+  --border-width: 2px;
+  --link-display: inline-flex;
+  border-radius: var(--mds-border-radius);
+  border-width: var(--border-width);
+  border-color: var(--color-border);
+  border-style: solid;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  display: var(--link-display, inline-flex);
+  transition: var(--mds-transition-medium);
+  padding: var(--padding-y, var(--mds-spacing-x-small)) var(--padding-x, var(--mds-spacing-medium));
+  font-family: var(--mds-font-sans-medium);
+  font-size: var(--font-size, inherit);
+  cursor: pointer;
+  justify-content: space-between;
+  gap: var(--gap, var(--mds-spacing-x-small));
+}
+
+/* Buttons for toggle don't display as pills. */
+
+.mds-button--toggle,
+::part(toggle-button) {
+  --border-width: 0;
+  --color-text: var(--mds-color-black);
+  --color-background: transparent;
+  --padding-y: var(--mds-spacing-xx-small);
+  --padding-x: var(--mds-spacing-x-small);
+}
+
+button:hover,
+.mds-button:hover,
+::part(toggle-button):hover,
+::part(toggle-button):focus,
+input[type="reset"]:hover {
+  --color-text: var(--mds-color-white);
+  --color-background: var(--mds-color-black);
+  --color-border: var(--mds-color-black);
+  box-shadow: none;
+  text-decoration: none;
+}
+
+/*
+ Button elements.
+ */
+
+/* Button label. */
+
+.mds-button__label {
+  /*  Empty bem structure in case we need it. */
+}
+
+/* Button Icon. */
+
+.mds-button__ionicon {
+  font-size: var(--mds-icon-size-normal);
+  align-self: center;
+}
+
+/*
+ Button Themes.
+ */
+
+.mds-button--toggle:hover,
+::part(toggle-button):hover,
+::part(toggle-button):focus {
+  --color-text: var(--mds-color-white);
+  --color-background: var(--mds-color-black);
+}
+
+/* Secondary button */
+
+.mds-button--secondary {
+  --color-text: var(--mds-color-white);
+  --color-background: var(--mds-color-black);
+  --color-border: var(--mds-color-black);
+}
+
+.mds-button--secondary:hover {
+  --color-text: var(--mds-color-black);
+  --color-background: transparent;
+  --color-border: var(--mds-color-black);
+}
+
+/* Branded button */
+
+.mds-button--branded {
+  --color-text: var(--mds-color-white);
+  --color-background: var(--mds-color-primary-500);
+  --color-border: var(--mds-color-primary-500);
+  --font-size: var(--mds-font-size-large-fixed);
+  /* Font weight set to bold to pass accessibility test. */
+  font-weight: var(--mds-font-weight-bold);
+}
+
+.mds-button--branded:hover {
+  --color-text: var(--mds-color-primary-500);
+  --color-background: var(--mds-color-white);
+  --color-border: var(--mds-color-primary-500);
+}
+
+/* Card Component styles. */
+
+/* Root Card class. */
+
+.mds-card {
+  /* Other CSS can go here! */
+}
+
+/* Larger device layout 2 column, image order change. */
+
+@media (min-width: 720px) {
+  /* CSS grid for layout of image beside text */
+
+  .mds-card.with-image {
+    /* 2 equal column widths */
+  }
+
+  /* Swap order of image on larger devices */
+
+  .mds-card--image {
+    order: 2;
+    width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+}
+
+/* Wraps content */
+
+.mds-card__wrapper {
+  padding: var(--mds-spacing-x-large);
+}
+
+/* Card header */
+
+.mds-card__header {
+  font-size: var(--mds-font-size-xx-large);
+  font-family: var(--mds-font-serif-medium);
+  padding-top: var(--mds-spacing-x-large);
+  padding-bottom: var(--mds-spacing-x-large);
+}
+
+/* Card body paragraph */
+
+.mds-card__body {
+  font-family: var(--mds-font-sans);
+  padding-top: var(--mds-spacing-medium);
+  padding-bottom: var(--mds-spacing-x-large);
+}
+
+.mds-container {
+  width: var(--mds-container-max-width);
+}
+
+@media screen and (min-width: 1200px) {
+  /* Centers content at full site width. */
+
+  .mds-container {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+/* Sets styles and default custom properties for both native HTML details and custom mds-extra-details elements.  */
+
+.mds-details,
+mds-extra-details {
+  /*  List of custom properties both elements should share. Think of this as
+  configuration and each element as a function: */
+  /*  A default spacing unit from the 'theme', corresponds to 8px for a good grid setup. */
+  --theme-spacing-unit: 0.5rem;
+  /* Main branding color.    */
+  --details-icon-color: var(--mds-color-primary-500, red);
+  /* Base spacing unit, with fallback.   */
+  --details-base-unit: var(--theme-spacing-unit, calc(0.5 * 1rem));
+  /* Padding unit, derived from base spacing unit. */
+  --details-summary-padding: var(--details-base-unit) 0 var(--details-base-unit) 0;
+  /* Font size and multiplier; uses theme-font-size if set, allowing for
+  override via properties. Multiplier allows for different scaling. Default to 2. */
+  --details-font-multiplier: 2;
+  --details-summary-font-size:
+    var(
+      --theme-font-size,
+      /* Use multiplier and base unit; eg: 3 x 0.5rem == 3 x 8px == 24px.  */
+      calc(var(--details-font-multiplier) * var(--details-base-unit))
+    );
+  /*  Arguably these properties should be locally scoped later.  */
+  --theme-thick-border-width: 2px;
+  --details-border-style: var(--theme-thick-border-width) #f4f4f4 solid;
+  border: var(--details-border-style);
+  padding: 0;
+  /*  Only bottom border:  */
+  border-width: 0 0 var(--theme-thick-border-width) 0;
+}
+
+/* Border handling for instances in lists. Only add top border to first in list. */
+
+mds-extra-details:first-of-type,
+.mds-details:first-of-type {
+  border-top: var(--details-border-style);
+}
+
+/* Legacy method to remove details summary marker. */
+
+.mds-details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Though it's good to be able to set defaults in a web component/custom
+element directly, themeing stuff should be done like this using `slot`
+attribute and `::part` selector: */
+
+/* Set bottom margin styles for custom element content part and native HTML element child contents. */
+
+mds-extra-details::part(contents),
+.mds-details > :is(p, div):last-child {
+  padding-bottom: calc(2 * var(--details-base-unit));
+}
+
+/* Set some styles on the summary slot and LightDOM contents in custom element: */
+
+mds-extra-details [slot="summary"],
+mds-extra-details [slot="summary"] :is(h1, h2, h3, h4, h5, p, div),
+/* Set styles on summary ShadowDOM part in custom element: */
+mds-extra-details::part(summary),
+/* Set styles on summary in native HTML element and it's contents: */
+.mds-details summary :is(h1, h2, h3, h4, h5, p, div),
+.mds-details summary {
+  /* Summary and its contents should have no margin. */
+  margin: 0;
+  font-size: var(--details-summary-font-size);
+  font-weight: normal;
+  /* Line-height == font-size for same height. */
+  line-height: var(--details-summary-font-size);
+}
+
+/* Set specific flex layout styles for summary elements in both custom and native HTML elements: */
+
+mds-extra-details::part(summary),
+.mds-details summary {
+  /* Use flex to align summary contents easily: */
+  display: flex;
+  align-items: center;
+  /* Re-use base unit so gap corresponds well to a proper 8-based grid. */
+  gap: var(--details-base-unit);
+  /* Set some padding on summary element. */
+  padding: var(--details-summary-padding);
+  /* Uses pointer cursor. */
+  cursor: pointer;
+}
+
+/* Alter margin-left for contents based on media-query: TODO: use proper custom property for mq here. */
+
+@media (min-width: 768px) {
+  mds-extra-details,
+  .mds-details {
+    --details-font-multiplier: 3;
+  }
+
+  mds-extra-details::part(contents),
+  .mds-details > :not(summary) {
+    /* Use font-size prop because it's what the icon size is derived from including gap.
+    size (base-unit), so all lines up properly and all multiples of 8. */
+    margin-left:
+      calc(
+        var(--details-summary-font-size) + var(--details-base-unit)
+      );
+  }
+}
+
+/* Style icon part and icon classes found in summary of custom and native elements. */
+
+mds-extra-details::part(toggle-wrapper),
+.mds-details summary .mds-icon {
+  flex: none;
+  margin: 0;
+  display: inline-block;
+  color: var(--details-icon-color);
+  /* Set width and height directly to ensure good touch-target/visual size consistency. */
+  width: var(--details-summary-font-size);
+  height: var(--details-summary-font-size);
+  /*  Position relative allows icon to be positioned absolutely for animation effects. */
+  position: relative;
+}
+
+/* Closed/default state - close icon is hidden. */
+
+.mds-details .mds-icon[name="remove-sharp"] {
+  display: none;
+}
+
+/* Open state - open icon is hidden. */
+
+.mds-details[open] .mds-icon[name="add-sharp"] {
+  display: none;
+}
+
+/* Close icon is shown. */
+
+.mds-details[open] .mds-icon[name="remove-sharp"] {
+  display: inline-block;
+}
+
+/* Enhanced Lists */
+
+.mds-list--enhanced {
+  --counter-width: calc(2.5 * var(--mds-spacing-x-large));
+  list-style-type: none;
+}
+
+.mds-list--enhanced > li {
+  --list-item-margin-bottom: var(--mds-spacing-x-large);
+  counter-increment: step-counter;
+  position: relative;
+  padding-left: calc(var(--counter-width) + var(--mds-spacing-x-large));
+  line-height: var(--mds-line-height-loose);
+}
+
+/* Creates counter pseudo element with decorative properties. */
+
+.mds-list--enhanced > li::before {
+  border-right: var(--mds-border-thin);
+  content: counter(step-counter);
+  display: inline-block;
+  font-family: var(--mds-font-serif-medium);
+  font-size: var(--mds-font-size-x-large);
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: var(--counter-width);
+  line-height: var(--mds-line-height-dense);
+}
+
+.mds-link {
+  display: var(--link-display, inline);
+  cursor: pointer;
+}
+
+.mds-link__icon {
+  --link-display: inline-flex;
+  gap: var(--link-gap, var(--mds-spacing-x-small));
+}
+
+/* Site specific utilities e.g., language toggles and Report an issue. */
+
+.mds-link--site-toggle {
+  /* This is a WIP and should not be reused in other contexts. */
+  --color-border: var(--mds-color-black);
+  --border-width: 2px;
+  padding: var(--mds-spacing-x-small) var(--mds-spacing-medium);
+  font-family: var(--mds-font-sans-medium);
+  border-radius: var(--mds-border-radius);
+  border-color: var(--color-border);
+  border-width: var(--border-width);
+  border-style: solid;
+  color: var(--mds-color-white);
+}
+
+/* Change the state of button like element to display in a black toolbar on mobile. */
+
+@media (min-width: 768px) {
+  .mds-link--site-toggle {
+    color: var(--mds-color-black);
+  }
+
+  .mds-link--site-toggle:hover {
+    --color-border: var(--mds-color-black);
+    color: var(--mds-color-white);
+    background-color: var(--mds-color-black);
+  }
+}
+
+/*
+ * Main Logo sizes.
+*/
+
+/* Small size logo */
+
+.mds-logo--sm {
+  --mds-logo-size: 128px;
+  width: var(--mds-logo-size);
+}
+
+/* Regular default size logo */
+
+.mds-logo--md {
+  width: var(--mds-logo-size);
+}
+
+/* Large default size logo */
+
+.mds-logo--lg {
+  --mds-logo-size: 288px;
+  width: var(--mds-logo-size);
+}
+
+/* Reduce size of logo on smaller viewports. */
+
+@media (min-width: 720px) {
+  .mds-logo--sm {
+    --mds-logo-size: 144px;
+  }
+}
+
+/* Base style of all messages. */
+
+[class*="mds-message-"],
+[class*=" mds-message-"] {
+  border: var(--mds-border-thin);
+  border-top: var(--mds-border-thick);
+  box-shadow: var(--mds-shadow-large);
+  border-color: var(--message-border-color, var(--mds-color-black));
+  -moz-column-gap: var(--mds-spacing-x-large);
+       column-gap: var(--mds-spacing-x-large);
+  display: grid;
+  grid-template-columns: var(--mds-icon-size-normal) 1fr;
+  justify-items: start;
+  padding: var(--mds-spacing-medium);
+}
+
+/* Message content. */
+
+.mds-message__content {
+  margin-top: var(--mds-spacing-x-small);
+}
+
+/* Message icon. */
+
+.mds-message__icon {
+  color: var(--icon-color, var(--mds-color-black));
+}
+
+/* Warning message with updated components. */
+
+.mds-message--warning {
+  --icon-color: var(--mds-color-warning-500);
+  --message-border-color: var(--mds-color-warning-500);
+}
+
+/* Success message with updated components. */
+
+.mds-message--success {
+  --icon-color: var(--mds-color-success-500);
+  --message-border-color: var(--mds-color-success-500);
+}
+
+/* Error message with updated components. */
+
+.mds-message--error {
+  --icon-color: var(--mds-color-error-500);
+  --message-border-color: var(--mds-color-error-500);
+}
+
+/* Info message with updated components. */
+
+.mds-message--info {
+  --icon-color: var(--mds-color-info-500);
+  --message-border-color: var(--mds-color-info-500);
+}
+
+/* Primary and flex modified sub-nav and sub-nav link styles. */
+
+/*
+  Drop-down modified sub-nav element.
+
+  TODO: Create a permanent dropdown solution. Current work is for demonstration purposes.
+  W.I.P. Drop-down modifier; useful for sub-navigation, works in horizontal OR vertical layouts.
+*/
+
+.mds-nav__sub-nav {
+  --nav-list-margin-top: var(--mds-spacing-x-small);
+}
+
+/* Indentation on third level menu item. */
+
+.mds-nav__sub-nav .mds-nav__sub-nav {
+  --nav-list-padding-x: var(--mds-spacing-medium);
+}
+
+/*
+  Sub-nav links have no border, less visually distinct than parent items.
+  Sub-nav links are underlined as clickable links.
+  Could rely on color to indicate activity (hover, etc).
+  */
+
+.mds-nav__sub-nav .mds-nav__link {
+  --decoration: underline;
+  border-bottom: none;
+}
+
+/* Sub-nav-container - holds sub-nav element - allows for interaction on hover etc. */
+
+.mds-nav--drop-down .mds-nav__sub-nav-container {
+  /*
+      For drop-down modifier sub-nav container must be relative positioned
+      so sub-nav itself can be absolute positioned.
+      */
+  position: relative;
+}
+
+/* Last drop-down sub-nav nav-item has no border - no need, no content follows. */
+
+.mds-nav--drop-down .mds-nav__sub-nav .mds-nav__item:last-child {
+  border: none;
+}
+
+/* Larger devices. */
+
+@media (min-width: 720px) {
+  /* Nav sub-nav element (i.e nested nav structure). */
+
+  .mds-nav__sub-nav {
+    /* TODO:WIP Needs design: Suggest slightly darken background of sub-nav; more nesting, darker it gets. */
+    --nav-list-margin-top: var(--mds-spacing-x-small);
+    --nav-list-padding-x: var(--mds-spacing-medium);
+  }
+
+  /* Visually hidden drop-down nav. sub-navigation element. */
+
+  .mds-nav--drop-down .mds-nav__sub-nav {
+    /* Requires background so can be 'over' other elements. */
+    background: var(--mds-color-white);
+    border-radius: var(--mds-border-radius);
+    box-shadow: var(--mds-shadow-small);
+    position: absolute;
+    /* TODO: we should also have a visually hidden utility for use with JS etc. */
+    margin-left: calc(2 * -100vw);
+  }
+
+  /* Change sub-nav container on hover, focus, focus-within. */
+
+  .mds-nav--drop-down .mds-nav__sub-nav-container:where(:hover,:focus,:focus-within) {
+    /* Requires a high z-index so sub-nav will be over other elements. */
+    z-index: var(--mds-z-index-tooltip);
+  }
+
+  /* Display sub-nav on hover, focus, focus-within etc. */
+
+  .mds-nav--drop-down .mds-nav__sub-nav-container:where(:hover,:focus,:focus-within) > .mds-nav__sub-nav {
+    /* Brings back into viewport. */
+    margin: 0;
+    /* A guess at average nav item character count. */
+    min-width: 12rem;
+    /* Only transition box-shadow. */
+    transition: box-shadow 0.2s;
+    box-shadow: var(--mds-shadow-large);
+  }
+}
+
+/* Primary modifier used to indicate primary navigation of the page. */
+
+.mds-nav--primary {
+  /* Specific background color rather than parent background. */
+  background: var(--mds-nav-bg);
+  padding: var(--nav-padding, var(--mds-spacing-x-large));
+}
+
+.mds-nav--primary .mds-nav__list {
+  --justify: space-between;
+  --align: stretch;
+  --nav-list-margin-right: auto;
+  --nav-list-margin-left: auto;
+}
+
+/* Take advantage of the cascade since the design implies hierarchy. */
+
+.mds-nav--primary > ul > li > a {
+  --font-family: var(--mds-font-serif);
+  --font-size: var(--mds-font-size-x-large);
+}
+
+/* Uses flex to provide better vertical alignment and space between icon and label. */
+
+.mds-nav--primary .mds-nav__link {
+  --link-display: inline-flex;
+  --link-gap: var(--mds-spacing-x-large);
+}
+
+/* Allow for previous basic button hover state to persist - only works on basic button style. */
+
+.mds-nav--primary .mds-nav__link.mds-button:where(:hover,:focus) {
+  --color-border: var(--mds-color-black);
+}
+
+/* Larger devices. */
+
+/* Set flex column to row on larger devices using a mobile first strategy. */
+
+@media (min-width: 768px) {
+  .mds-nav--primary {
+    --nav-padding: 0;
+  }
+
+  .mds-nav--primary .mds-nav__list {
+    --direction: row;
+    --gap: var(--mds-spacing-x-large);
+    --justify: start;
+  }
+
+  .mds-nav--primary > ul > li > a {
+    --font-family: unset;
+    --font-size: unset;
+  }
+
+  .mds-nav--primary .mds-link__icon-label {
+    /* Text will appear on mobile but shouldn't on larger devices. */
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .mds-nav--primary .mds-nav__link {
+    --link-display: inline-block;
+  }
+
+  /* Selected style - that is link already selected (i.e. matches current url). */
+
+  .mds-nav--primary .mds-nav__link--selected {
+    --color-border: var(--mds-color-black);
+    font-weight: inherit;
+  }
+}
+
+/* Goes against mobile first strategy. */
+
+@media (max-width: 767px) {
+  /*  Placeholder. */
+}
+
+/*
+  WIP: --secondary modifier.
+  TODO: Needs design.
+  TODO: Decide if secondary is ultimately a side bar menu.
+  Bounds nav in border for use in non-header or footer contexts (e.g. side-bars, content body etc).
+  */
+
+.mds-nav--secondary {
+  border-top: var(--mds-border-thin);
+  border-bottom: var(--mds-border-thin);
+}
+
+/* Secondary navigation styles for links in horiz. nav. (?) */
+
+.mds-nav--secondary .mds-nav__link {
+  /*
+      TODO: perhaps a --secondary modifier could also have a hover style - but say gray or blue border?
+      Or retain the transparency and use that in tools? Refer to a secondary nav design.
+     */
+}
+
+/* Decoupled tool navigation, often including icons as menu items. */
+
+.mds-nav--tools {
+  /* Placeholder. */
+}
+
+.mds-nav--tools .mds-nav__list {
+  /* Tools list displays in a flex layout. */
+  display: flex;
+  gap: var(--mds-spacing-small);
+}
+
+.mds-nav--tools .mds-nav__item {
+  --mds-nav-item-border-bottom: 0;
+  /* Align items vertically. */
+  align-self: center;
+}
+
+/* Aligns Icons horizontally in tools container.  */
+
+.mds-nav--tools .mds-link__icon {
+  justify-content: center;
+}
+
+/* Align icons vertically in tools container. */
+
+/* TODO: create a custom property. */
+
+.mds-nav--tools .mds-icon {
+  vertical-align: middle;
+}
+
+/*
+ * Override the colors of toggle buttons, since they on different
+ * backgrounds for larger and smaller devices widths. */
+
+.mds-nav--tools .mds-button--toggle {
+  --color-text: var(--mds-color-white);
+}
+
+@media (min-width: 768px) {
+  /* TODO: refactor - styles for these toggle buttons are across at least 4 files. */
+
+  .mds-nav--tools .mds-button--toggle,
+  .mds-nav--tools ::part(toggle-button) {
+    --color-text: var(--mds-color-black);
+  }
+
+  .mds-nav--tools .mds-button--toggle:hover,
+  .mds-nav--tools ::part(toggle-button):hover {
+    --color-text: var(--mds-color-white);
+  }
+
+  .mds-nav--tools .mds-nav__list {
+    justify-items: end;
+    gap: var(--mds-spacing-large);
+  }
+}
+
+/* MDS Nav CSS. */
+
+/* Nav block. Base block for all navigation elements. */
+
+.mds-nav {
+  /* Set a couple variables that are useful in different mds-nav contexts. */
+  --align: start;
+  /* Useful for --drop-down modifier. */
+  --mds-nav-bg: var(--mds-color-white);
+  /* Predominant color to indicate active state of active nav elements. */
+  --mds-nav-active: var(--mds-color-primary-500);
+}
+
+/* Nav list element - typically an ul. */
+
+.mds-nav__list {
+  list-style: none;
+  margin:
+    var(--nav-list-margin-top, 0)
+    var(--nav-list-margin-right, 0)
+    var(--nav-list-margin-bottom, 0)
+    var(--nav-list-margin-left, 0);
+  padding: var(--nav-list-padding-y, 0) var(--nav-list-padding-x, 0);
+  width: var(--nav-width, auto);
+}
+
+/* Nav item element - typically a list item. */
+
+.mds-nav__item {
+  --list-item-margin-bottom: 0;
+  /* Defaults to x-small padding on y-axis and 0 on x-axis. */
+  padding: var(--mds-nav-item-padding-y, var(--mds-spacing-small)) var(--mds-nav-item-padding-x, 0);
+  border-bottom: var(--mds-nav-item-border-bottom, 0);
+  /* Overrides border color. */
+  border-color: var(--mds-nav-item-border-color, var(--mds-color-gray-200));
+}
+
+/* Last item no bottom border. */
+
+.mds-nav__item:last-child {
+  --mds-nav-item-border-bottom: none;
+}
+
+/* Nav link element. */
+
+.mds-nav__link {
+  display: var(--link-display, inline-block);
+  align-items: center;
+  width: 100%;
+  font-family: var(--font-family, var(--mds-font-sans));
+  font-size: var(--font-size, initial);
+}
+
+/* WIP: need a default 'selected' style - i.e. in regular, vertical nav. */
+
+.mds-nav__link.mds-nav__link--selected {
+  background-color: var(--mds-nav-selected-background-color, initial);
+}
+
+.mds-nav--vertical > li {
+  --mds-nav-item-border-bottom: var(--mds-border-thin);
+}
+
+/* Larger Devices. */
+
+@media (min-width: 768px) {
+  .mds-nav {
+    --align: center;
+  }
+
+  .mds-nav__item {
+    --mds-nav-item-padding-y: var(--mds-spacing-x-small);
+  }
+
+  /* All flex modified links have a basic border style. */
+
+  :where(.mds-nav--primary, .mds-nav--tools) .mds-nav__link {
+    /* If --border-width is not set use 3px. */
+    border-bottom: var(--border-width, 3px) solid var(--color-border, transparent);
+  }
+
+  /*
+    More primary and flex modifying link styles: hover, focus, selected modifier etc styles.
+    Gives 'horizontal' primary navigations a distinct look with emphasized top-level nav items.
+    */
+
+  /* Primary; Tools and flex modified links have a more vibrant color on hover. */
+
+  :where(
+  .mds-nav--primary .mds-nav__list,
+  .mds-nav--tools) .mds-nav__link:hover:not(.mds-button, .mds-link--site-toggle),
+  :where(
+    .mds-nav--primary .mds-nav__list,
+    .mds-nav--tools) .mds-nav__link:focus:not(.mds-button, .mds-link--site-toggle) {
+    --color-border: var(--mds-nav-active);
+  }
+}
+
+/* Search form container. */
+
+.mds-search__form {
+  --gap: var(--mds-spacing-x-small);
+  --align: stretch;
+  --justify: start;
+  --direction: row;
+  display: flex;
+  gap: var(--gap);
+  width: 100%;
+}
+
+/* Search Form item element. */
+
+.mds-search__form-item {
+  width: 100%;
+}
+
+/* Search Form text area, which is different then our standard form elements. */
+
+.mds-search__form-text {
+  --input-border: 0;
+  font-size: var(--mds-font-size-x-large);
+  border-bottom: var(--mds-border-medium);
+  background-image: var(--bg-img, var(--mds-icon-search-black));
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  padding-left: var(--bg-padding, calc(var(--mds-spacing-large) + var(--mds-icon-size-normal)));
+  width: 100%;
+}
+
+/* Dark mode variation - use white icon. */
+
+.mds-dark .mds-search__form-text {
+  --bg-img: var(--mds-icon-search-white);
+}
+
+.mds-search__form-text:hover {
+  --input-border: 0;
+  box-shadow: none;
+  border-color: var(--mds-color-primary-500);
+}
+
+/*
+ Search submit button.
+ */
+
+.mds-search__submit {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .mds-search__submit {
+    --padding-x: var(--mds-spacing-large);
+    display: flex;
+  }
+
+  .mds-search__form-text,
+  .mds-dark .mds-search__form-text {
+    --bg-img: none;
+    --bg-padding: none;
+  }
+}
+
+/*
+ Search results list.
+ */
+
+.mds-search__results {
+  padding-top: var(--mds-spacing-x-large);
+  padding-bottom: var(--mds-spacing-x-large);
+  border-top: var(--mds-border-thin-light);
+}
+
+/*
+  List of items displayed as a vertical tabbed interface.
+*/
+
+.mds-nav.mds-vertical-nav--tabbed {
+  /* Item Properties. */
+  --mds-nav-item-padding-y: 0;
+  --mds-nav-item-border-color: var(--mds-color-white);
+  /* Link Properties. */
+  --mds-nav-link-padding-y: var(--mds-spacing-medium);
+  --mds-nav-link-padding-x: var(--mds-spacing-medium);
+  --mds-nav-link-background-color: var(--mds-color-gray-100);
+  /* Selected Properties. */
+  --mds-nav-selected-background-color: var(--mds-color-white);
+}
+
+/* Provides border and padding. */
+
+.mds-vertical-nav--tabbed .mds-nav__item {
+  --mds-nav-item-border-bottom: var(--mds-border-thin);
+  --mds-nav-item-padding-y: 0;
+}
+
+/*
+  Tabbed selected link.
+*/
+
+.mds-vertical-nav--tabbed .mds-nav__link {
+  padding: var(--mds-nav-link-padding-y) var(--mds-nav-link-padding-x);
+  /* Defaults to no background color. */
+  background-color: var(--mds-nav-link-background-color, initial);
+  border-left: var(--mds-nav-link-border-left, var(--mds-border-thick));
+  border-color: var(--mds-border-color, var(--mds-nav-link-background-color));
+  font-family: var(--mds-link-font, inherit);
+}
+
+.mds-vertical-nav--tabbed .mds-nav__link:where(:focus, :hover) {
+  --mds-nav-link-background-color: var(--mds-color-white);
+  --mds-nav-link-border-left: var(--mds-border-thick);
+  --mds-border-color: var(--mds-color-primary-500);
+  box-shadow: var(--mds-shadow-small);
+  color: var(--mds-color-black);
+}
+
+.mds-vertical-nav--tabbed .mds-nav__link--selected {
+  --mds-nav-link-border-left: var(--mds-border-thick);
+  --mds-nav-link-background-color: var(--mds-color-white);
+  --mds-border-color: var(--mds-color-black);
+  --mds-link-font: var(--mds-font-sans-medium);
+}
+
+/*
+ * Footer
+ */
+
+.mds-footer {
+  width: 100%;
+}
+
+.mds-footer__wrapper {
+  font-family: var(--mds-font-sans);
+  font-size: var(--mds-font-size-small);
+  padding: var(--mds-spacing-large) var(--footer-padding-x, var(--mds-spacing-large));
+  text-align: center;
+}
+
+/* Copyright information */
+
+.mds-footer__body {
+  vertical-align: middle;
+  margin-top: var(--mds-spacing-x-small);
+  margin-bottom: var(--mds-spacing-x-small);
+  text-align: center;
+}
+
+/* Centered Logo on smaller devices */
+
+.mds-footer .mds-logo--sm {
+  display: inline-block;
+}
+
+/* Larger devices */
+
+@media (min-width: 720px) {
+  .mds-footer__wrapper {
+    --footer-padding-x: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--mds-spacing-x-large);
+    margin: 0 auto;
+  }
+
+  .mds-footer__body,
+  .mds-footer__links {
+    display: inline-flex;
+  }
+
+  /* Body area is larger than sibling elements */
+
+  .mds-footer__body {
+    flex-grow: 4;
+  }
+}
+
+/* Main header container, should be a <header />. */
+
+.mds-header {
+  background: var(--mds-color-white);
+}
+
+.mds-header .mds-nav--primary {
+  --nav-width: var(--mds-container-max-width);
+}
+
+.mds-header__content {
+  /* Place holder. */
+}
+
+/* Site-name and slogan area. */
+
+.mds-header__site-name-and-slogan {
+  padding-top: var(--mds-spacing-large);
+  padding-bottom: var(--mds-spacing-xx-small);
+}
+
+/* Center all direct descendents. */
+
+/* TODO: this is a dubious use of the cascade; a modifier on the elements in question would be better. */
+
+.mds-header__content > * {
+  align-self: start;
+}
+
+/* Contains branding elements - logo, name, slogan etc. Uses flex to visually order items. */
+
+.mds-header__branding {
+  display: flex;
+  flex-direction: column;
+  text-align: var(--text-align, center);
+  padding: var(--header-padding-y, var(--mds-spacing-large)) var(--header-padding-x, var(--mds-spacing-large));
+}
+
+/* Site name. */
+
+.mds-header__name {
+  font-family: var(--mds-font-sans-medium);
+  font-size: var(--mds-font-size-x-large);
+}
+
+/* Slogan text. */
+
+.mds-header__slogan {
+  /* Placeholder for any possible slogan styling. */
+  margin: 0;
+}
+
+/* Visual re-ordering exception for logo: */
+
+.mds-header__branding .mds-header__logo {
+  /* When nested in branding block, Use negative order to display logo 1st all the time, regardless of source order. */
+  order: -1;
+}
+
+/*
+ Header nav wrapper - contains tools, mobile menu trigger and sometime the primary menu.
+ */
+
+/* Mobile first grid layout, accounts for hamburger menu. */
+
+.mds-header__nav-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background: var(--tools-bg, var(--mds-color-black));
+  border-top: var(--border-top, var(--mds-border-thin-light));
+  border-bottom: var(--border-bottom, var(--mds-border-thin-light));
+  -moz-column-gap: var(--column-gap, initial);
+       column-gap: var(--column-gap, initial);
+}
+
+/* Header tool list displays non-standard layout and inconsistent button design. */
+
+.mds-header__nav-wrapper .mds-nav--tools .mds-nav__list {
+  /* Since we use grid instead of flex and expect only two items in the container. */
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Mobile first space distribution and element alignment. */
+
+.mds-header__nav-wrapper .mds-nav__item {
+  /* Aligns icons and text to the center. */
+  text-align: center;
+}
+
+/* Overrides for displaying the menu button not as our standard button. */
+
+.mds-header__nav-wrapper > .mds-header__mb-menu,
+.mds-header__nav-wrapper mds-toggle {
+  display: flex;
+  border-radius: 0;
+  justify-content: center;
+}
+
+/* TODO: fix this descendent selector stuff, it's fragile and hard to work
+with. Also, 90% sure this styling belongs in a media-query. */
+
+.mds-header__nav-wrapper > mds-toggle-menu::part(menu-button),
+.mds-header__nav-wrapper mds-toggle::part(toggle-button) {
+  display: flex;
+  align-items: center;
+  color: var(--mds-color-white);
+  background: var(--mds-color-black);
+  border-color: var(--mds-color-black);
+  border-style: solid;
+  font-size: 32px;
+}
+
+/* Explicit handling of toggle at different breakpoints. */
+
+@media (min-width: 768px) {
+  .mds-header__nav-wrapper mds-toggle::part(toggle-button) {
+    color: var(--mds-color-black);
+    background: transparent;
+  }
+
+  .mds-header__nav-wrapper mds-toggle::part(toggle-button):hover,
+  .mds-header__nav-wrapper mds-toggle::part(toggle-button):focus {
+    color: var(--mds-color-white);
+    background: var(--mds-color-black);
+  }
+}
+
+/* Change the color of header icons only for smaller displays. */
+
+/* This goes against the mobile first strategy. */
+
+@media (max-width: 768px) {
+  /* The mds-nav--tools list is currently full of exceptions.
+     Override mds tool list for a non-standard display of components. */
+
+  .mds-header__nav-wrapper .mds-nav--tools .mds-icon {
+    color: var(--mds-color-white);
+  }
+
+  /* Sets grid display only for header and overrides space between items. */
+
+  .mds-header__nav-wrapper .mds-nav--tools .mds-nav__list {
+    display: grid;
+    gap: 0;
+  }
+
+  /*
+  TODO: See if we can improve avoid overriding and then resetting ionicon default size attributes.
+   */
+
+  .mds-header__nav-wrapper .icon-large {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/*
+ Larger screens.
+ */
+
+/* TODO: tablet and mobile layouts need work. */
+
+/* TODO: this breakpoint is too low and these styles don't work well on tablet
+   probably should have a standard as well in mds-shared.css, changing to 768 for now. - was 720px.
+   Ideally have more than 2 breakpoint divisions. See WIP below:
+   */
+
+@media (min-width: 768px) {
+  /*
+    TODO: re-consider these basic grids since they don't support the designs well (require different markup).
+    Better to have it all in a 'masonry' type layout all together to move the pieces around
+    at will to accommodate both designs - using identical markup except for some modifying classes on '.mds-header'.
+    Use CSS to slot pieces in whatever grid layout we want.
+    Anyway, a more responsive and coherent design is probably required.
+  */
+
+  /* Setup grid for header contents. */
+
+  .mds-header__content {
+    display: grid;
+    margin-bottom: var(--mds-spacing-medium);
+    padding-bottom: var(--mds-spacing-large);
+    padding-top: var(--mds-spacing-large);
+  }
+
+  /* Huge modified content can use grid to hold branding and tools in cols. */
+
+  .mds-header--huge .mds-header__content {
+    grid-template-columns: auto auto;
+  }
+
+  .mds-header__nav-wrapper .mds-nav--tools {
+    margin-top: 0;
+  }
+
+  /* Change branding flex direction, align-items. */
+
+  .mds-header__branding {
+    --text-align: left;
+    --header-padding-y: var(--mds-spacing-small);
+    --header-padding-x: 0;
+    flex-direction: row;
+    align-items: start;
+  }
+
+  /*
+    Container for site logo.
+    The logo should be in the center of the dividing line.
+    The height of the dividing line is determined by the padding around the logo.
+    */
+
+  .mds-header__logo {
+    display: flex;
+    align-items: center;
+    padding-top: var(--mds-spacing-xx-small);
+    padding-bottom: var(--mds-spacing-xx-small);
+  }
+
+  /* Title of site which includes dividing line. */
+
+  .mds-header__site-name-and-slogan {
+    border-left: var(--mds-border-thin-light);
+    padding-left: var(--mds-spacing-medium);
+    padding-top: var(--mds-spacing-xx-small);
+    margin-left: var(--mds-spacing-medium);
+  }
+
+  /* Add special centering to header nav blocks. */
+
+  /*
+    TODO: this cascade override suggests a problem - an edge case,
+    or possible use of a modifier, or setting flex-end as the default.
+    */
+
+  .mds-header .mds-nav {
+    align-self: center;
+  }
+
+  .mds-nav__link [name="menu-sharp"] {
+    display: none;
+  }
+
+  /* Container for multiple navs. */
+
+  .mds-header__nav-wrapper {
+    --tools-bg: transparent;
+    --border-bottom: 0;
+    --border-top: 0;
+    --column-gap: var(--mds-spacing-x-large);
+    /* Todo use css components */
+    display: grid;
+    align-self: start;
+  }
+
+  /* Always have last nav align to end, aka right side of wrapper when grid layout in effect. */
+
+  .mds-header__nav-wrapper .mds-nav:last-child {
+    justify-self: end;
+  }
+
+  /* Only one nav in wrapper in --huge variant - no need for grid-template-cols. */
+
+  .mds-header--huge .mds-header__nav-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  /* On larger displays don't show menu button. */
+
+  .mds-header__nav-wrapper > .mds-header__mb-menu {
+    display: none;
+  }
+}
+
+/* Minimum 'Laptop' resolution (according to Chrome anyway). */
+
+@media (min-width: 1024px) {
+  /* Creates a grid lining up header contents at wider resolutions. */
+
+  .mds-header__content {
+    grid-template-columns: auto auto;
+  }
+
+  /* Aligns all navs to the right of the wrapper and right of the header when grid layout in effect. */
+
+  .mds-header__nav-wrapper .mds-nav {
+    justify-self: end;
+  }
+}
+
+/*
+ * TODO: figure out what gets scoped:
+  probably just components - everything else gets divided into a reset and a base,
+  so those should be created have own imports. something like:
+ * src:
+ * mds-reset.css
+ * mds-base.css
+ * mds-components.css
+ *
+ *
+ * dist: (unscoped)
+ * mds-reset.css
+ * mds(base+components)
+ *
+ * dist: (scoped)
+ * mds-reset.css
+ * mds-scoped.css
+ *
+ * Or something...
+ * */
+
+@media (min-width: 640px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1280px) {
+}
+
+@media (min-width: 1536px) {
+}

@@ -1,0 +1,267 @@
+/*
+Shared utilities and other styles common to all web components. Includes some
+variables, utilities and initial states for web components.
+*/
+
+/*
+Common variables.
+*/
+:root {
+  --animation-duration: 0.6s;
+  --animation-duration-fast: 0.3s;
+  --animation-duration-slow: 1.2s;
+
+  /* Loading animation expressed in single line syntax: */
+  --loading-animation: fade-in var(--animation-duration) ease-in 300ms backwards;
+
+  /* A fixed spacing unit. Equivalent to 8px. */
+  --fixed-spacing-unit: 0.5rem;
+}
+
+/* Disable all animations as per user preferences. */
+@media (prefers-reduced-motion) {
+  *,
+  *::before,
+  *::after {
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/*
+Screen-reader only utility.
+*/
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/*
+Basic fade-in animation. Used for WC 'hydration' (undefined -> defined) transition.
+*/
+@keyframes fade-in {
+  from {
+    opacity: 0%;
+  }
+
+  to {
+    opacity: 100%;
+  }
+}
+
+/*
+Snap-in animation: allows an element to be visually hidden/nearly equivalent to
+display:none. Why animation at all? - so elements can transition from one state
+to the other without selectors or JS, just animation delay/timing/fill-mode
+props. Note: height/width are set to 'auto' in 'to' frame and thus 'snap'
+('auto' is not accepted as animatable value!).
+*/
+@keyframes snap-in {
+  from {
+    /* Hide element by making it tiny! */
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  to {
+    height: auto;
+    width: auto;
+    overflow: auto;
+  }
+}
+
+/*
+  Drawer component.
+*/
+
+/* Defined state for mds-drawer. */
+mds-drawer {
+  /* Animate with fade-in when defined. */
+  animation: var(--loading-animation);
+}
+
+/* Undefined state for mds-drawer. */
+mds-drawer:not(:defined) {
+  /* Drawer initial state is totally hidden - snap-in animation allows that to
+  change so non-JS users can still see it. JS users will get the mds-drawer in
+  defined state with loading animation. */
+  animation: snap-in 0.3s;
+  animation-fill-mode: backwards;
+  animation-delay: 400ms;
+
+  /* Required for animation. */
+  display: block;
+}
+
+/*
+  Extra-details component.
+*/
+
+/* Defined state. */
+mds-extra-details {
+  display: block;
+
+  /* Use loading animation to avoid FOUC and suggest loading process to user. */
+  animation: var(--loading-animation);
+}
+
+/* Styles for extra-details child lightDOM elements before defined. */
+mds-extra-details:not(:defined) * {
+  /* Timer/loading animation to suggest interim 'loading' period between custom
+  element not defined and defined. Allows lightDOM to 'load' and behave same
+  way as shadowDOM even if there's no JS enabled. Helps avoid FOUC when JS is
+  enabled as well. */
+  animation: var(--loading-animation);
+}
+
+/* Each custom element should have some initial styles set externally to themselves to establish layouts etc. */
+open-close-toggle,
+extra-details {
+  /* Animate so element fades-in when defined - i.e. when JS loads. */
+  animation: wc-fade-in 0.6s ease-in;
+
+  /* Custom elements need a default display property. `inline-block` is the best default. */
+  display: inline-block;
+}
+
+/* Give extra-details layout but invisibility until defined. */
+mds-extra-details:not(:defined) {
+  visibility: hidden;
+}
+
+/* mds-placeholder initialized as invisible. */
+mds-placeholder,
+mds-placeholder:not(:defined) {
+  display: block;
+  opacity: 0%;
+}
+
+/* When mds-placeholder is ready, make visible by changing opacity. */
+mds-placeholder[ready] {
+  /* Animation of opacity and setting opacity is better than using transition.
+   More reliable under diverse conditions, see:
+   https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/
+   Using_CSS_transitions
+   #:~:text=adding%20the%20element%20to%20the%20DOM%20using%20.appendChild() */
+  animation: var(--loading-animation);
+  opacity: 100%;
+}
+
+/* mds-toggle-scrim default CSS using ::part. */
+
+/* CSS for scrim if onState set. All of
+this can be overriden at any layer if
+required. AKA it can be 'themed' where/when necessary. */
+
+mds-toggle-scrim[onState] {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+}
+
+mds-toggle-scrim[onState]::part(scrim-layer) {
+  /* TODO: replace with another color? */
+  background: black;
+
+  /* TODO: replace with value derived from a shared property? */
+  opacity: 30%;
+  height: 100%;
+  width: 100%;
+}
+
+mds-menu::part(hidden-slotted-content) {
+  /* TODO: better visually hidden content strategy for WC's. */
+  height: 0;
+  overflow: hidden;
+}
+
+/* TODO: style mds-dialog here. Does this go here?
+  Possibly belongs in own file, or specifically in D9? Resolve in review.
+*/
+mds-dialog {
+  &[onState] {
+    /* Set a default width for dialogs. */
+    --adjusted-width: calc(var(--mds-container-max-width) * 0.8);
+    --dialog-width: var(--adjusted-width, 80%);
+  }
+
+  &.mds-dark::part(dialog-element) {
+    background: #111;
+    color: white;
+  }
+
+  &::part(dialog-body) {
+    padding: 5rem 3rem 3rem;
+  }
+
+  /* Search Form related CSS.
+  TODO: probably not for here? The form in general, outside the scope of the modal requires some re-design. */
+  .mds-search__submit {
+    align-items: center;
+  }
+
+  /* Timing variable for dialog animations. */
+  --dialog-animation-time: 0.3s;
+
+  input[type="search"]:focus,
+  input[type="search"]:hover {
+    border-color: unset;
+    box-shadow: 0 2px 0 black;
+  }
+}
+
+/* Firefox doesn't allow for backdrop-filter animation so use simple fade. */
+@supports (-moz-appearance: none) {
+  mds-dialog::part(dialog-element) {
+    /* NB: animating the entire `dialog` in FF - you can't animate the ::backdrop only yet. */
+    animation: ff-dialog-fade var(--dialog-animation-time) ease-out forwards;
+  }
+
+  /* Targetting with ::part()::backdrop works in FF, not in Chromium. */
+  mds-dialog::part(dialog-element)::backdrop {
+    backdrop-filter: blur(2px);
+    background: rgb(0 0 0 / 80%);
+  }
+}
+
+/* Firefox specific dialog-fade. */
+@keyframes ff-dialog-fade {
+  from {
+    opacity: 0%;
+  }
+
+  to {
+    opacity: 80%;
+  }
+}
+
+/* MDS Shutter element. */
+mds-shutter {
+  display: block;
+}
+
+/* Utility classes to change override height when applied to mds-shutter. */
+
+/* Selector for closing mds-shutter. */
+mds-shutter.mds-shutter-closed::part(height-container) {
+  /* stylelint-disable-next-line custom-property-pattern */
+  --overrideHeight: 0;
+}
+
+/* Selector for opening mds-shutter. */
+mds-shutter.mds-shutter-open::part(height-container) {
+  /* stylelint-disable-next-line custom-property-pattern */
+  --overrideHeight: unset;
+}
+
